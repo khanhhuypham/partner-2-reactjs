@@ -1,0 +1,28 @@
+<svg width="42" height="52" viewBox="0 0 42 52" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <linearGradient id="gradient1" x1="-3.0702" y1="71.2691" x2="30.2194" y2="7.4625">
+            <stop offset="0%" stop-color="#f99e53" />
+            <stop offset="100%" stop-color="#f16529" />
+        </linearGradient>
+    </defs>
+    <path
+        fill="url(#gradient1)"
+        d="M4,0L27.937,0L42,14.063L42,48C42,50.209 40.209,52 38,52L4,52C1.791,52 0,50.209 0,48L0,4C0,1.791 1.791,0 4,0" />
+    <path
+        fill="#f79868"
+        d="M28,0l13,13l-13,0z" />
+    <path
+        fill="none"
+        stroke="#fff"
+        stroke-width="2.2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        d="M25,21l7.967,7.967l-7.915,7.914" />
+    <path
+        fill="none"
+        stroke="#fff"
+        stroke-width="2.2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        d="M16.967,21l-7.967,7.967l7.915,7.914" />
+</svg>

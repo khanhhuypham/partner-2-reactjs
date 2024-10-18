@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="42" height="52" viewBox="0 0 42 52">
+  <!-- Gradient definition -->
+  <defs>
+    <linearGradient id="gradient1" x1="-6.5671" y1="78.6656" x2="30.6776" y2="7.0538" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#6bd396" />
+      <stop offset="1" stop-color="#39a75d" />
+    </linearGradient>
+  </defs>
+
+  <!-- First path using the gradient -->
+  <path fill="url(#gradient1)" d="M27.937,0L42,14.063L42,48C42,50.209 40.209,52 38,52L4,52C1.791,52 0,50.209 0,48L0,4C0,1.791 1.791,0 4,0L27.937,0Z"/>
+
+  <!-- Second path with solid color -->
+  <path fill="#60ca83" d="M28,0l13,13l-13,0z"/>
+
+  <!-- Third path with stroke and fill -->
+  <path fill="#fff" stroke="#fff" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round"
+        d="M21.333,29.971l4.361,-6.971l2.823,0l-5.747,9.02l5.884,9.17l-2.848,0l-4.473,-7.096l-4.497,7.096l-2.836,0l5.897,-9.17l-5.76,-9.02l2.811,0z"/>
+</svg>

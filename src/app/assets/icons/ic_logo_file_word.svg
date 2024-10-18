@@ -1,0 +1,32 @@
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="42"
+    height="52"
+    viewBox="0 0 42 52">
+    
+    <!-- Main file shape -->
+    <path
+        fill="url(#gradient-color-file-word)"
+        d="M4,0 L27.937,0 L42,14.063 L42,48 C42,50.209 40.209,52 38,52 L4,52 C1.791,52 0,50.209 0,48 L0,4 C0,1.791 1.791,0 4,0" />
+    <path
+        fill="#66a8dd"
+        d="M28,0 L41,13 L28,13 Z" />
+    
+
+    <path
+        fill="#fff"
+        d="M15.831,34.848 L16.17,37.171 L16.666,35.078 L20.152,22.781 L22.112,22.781 L25.513,35.078 L25.997,37.171 L26.373,34.799 L29.108,22.744 L31.444,22.744 L27.171,39.366 L25.053,39.366 L21.423,26.525 L21.144,25.181 L20.866,26.525 L17.856,39.366 L15.738,39.366 L11.478,22.744 L13.801,22.744 Z"
+        stroke="#fff"
+        stroke-width="0.5"
+        stroke-linecap="round"
+        stroke-linejoin="round" />
+    
+    <!-- Gradient definition -->
+   <defs>
+    <linearGradient id="gradient-color-file-word" x1="-10.6176" y1="84.8198" x2="31.2497" y2="6.8167" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#57b7e5" />
+      <stop offset="1" stop-color="#2c81c6" />
+    </linearGradient>
+  </defs>
+
+</svg>
