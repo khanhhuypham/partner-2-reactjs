@@ -8,6 +8,7 @@ import {Sidebar} from "../components/template/Sidebar";
 import Header from "../components/template/Header";
 import { useDispatch } from "react-redux";
 import { Outlet } from "react-router-dom";
+import { Toast } from "../components/alert/Alert";
 
 
 export const Layout: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
@@ -40,7 +41,7 @@ export const Layout: React.FC<{ children?: React.ReactNode }> = ({ children }) =
             <Box sx={{ display: "flex", minHeight: "100dvh" }}>
                 <Header />
                 <Sidebar />
-     
+                {/* <Toast/> */}
                 <Outlet />
             </Box>
         </CssVarsProvider>

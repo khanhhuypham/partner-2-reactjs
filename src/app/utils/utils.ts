@@ -52,3 +52,19 @@ export function toggleMessagesPane() {
         }
     }
 }
+
+
+export const createPagination = (from: number, to: number) => Array.from({length:to - from + 1},(_, i) => {
+        
+    if((to - from) > 10){
+        return i == Math.ceil((to - from)/2) ? "...": from + i
+    }else{
+        return from + i
+    }
+   
+});
+
+
+export const containsDiacritics = (str: string): boolean => {
+    return str !== str.normalize('NFD').replace(/\p{M}/gu, '');
+}

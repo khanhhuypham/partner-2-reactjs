@@ -59,13 +59,20 @@ const items: MenuItem[] = [
 
     {
         key: '3',
+        label: 'Department',
+        icon: <ShoppingCartRoundedIcon />,
+        href: "/department"
+    },
+
+    {
+        key: '4',
         label: 'Order',
         icon: <ShoppingCartRoundedIcon />,
         href: "/order"
     },
 
     {
-        key: '4',
+        key: '5',
         label: 'Tasks',
         icon: <AssignmentRoundedIcon />,
         children: [
@@ -76,7 +83,7 @@ const items: MenuItem[] = [
         ],
     },
     {
-        key: '3',
+        key: '6',
         label: 'Messages',
         icon: <QuestionAnswerRoundedIcon />,
         chip: 4,
@@ -84,7 +91,7 @@ const items: MenuItem[] = [
     },
 
     {
-        key: '4',
+        key: '7',
         label: 'Users',
         icon: <GroupRoundedIcon />,
         children: [

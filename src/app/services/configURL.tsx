@@ -11,7 +11,7 @@ const axiosClient = (token: string | null = null): AxiosInstance => {
         : {"Content-Type": "application/json"};
 
     const client = axios.create({
-        baseURL: "http://172.16.1.165:31151",
+        baseURL: "http://172.16.2.173:31151/api",
         headers,
         timeout: 10000,
         withCredentials: false,
@@ -19,6 +19,7 @@ const axiosClient = (token: string | null = null): AxiosInstance => {
 
     client.interceptors.request.use((config: any) => {
         const token = localStorage.getItem("ACCESS_TOKEN");
+      
         config.headers = config.headers || {};
         if (token) {
             config.headers.Authorization = `Bearer ${token}`;
@@ -37,7 +38,6 @@ const axiosClient = (token: string | null = null): AxiosInstance => {
                 if (response?.status === 401) {
                     localStorage.removeItem("ACCESS_TOKEN");
                 }
-
                 console.error(error);
             } catch (e) {
                 console.error(e);

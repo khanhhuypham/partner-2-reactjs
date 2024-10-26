@@ -6,7 +6,7 @@ import { selectGetToken } from "../selectors/tokenSelectors";
 import { saveToken, getToken, getUser } from "../store/sessionManager";
 import { useNavigate } from "react-router-dom";
 import { showToast } from "../hooks/useToast";
-import "react-toastify/dist/ReactToastify.css";
+// import "react-toastify/dist/ReactToastify.css";
 
 import { userService } from "../../app/services/user/userService";
 
@@ -31,6 +31,10 @@ const LoginForm = () => {
     useEffect(() => {
         const user = getUser()
         console.log(user)
+
+        const token = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZGVudGlmaWVyX25hbWUiOiJhYmMiLCJjb21wYW55X2lkIjoxLCJicmFuY2hfaWQiOjAsInVzZXJfaWQiOjc1MCwicGhvbmUiOiIwMTExMTExMTExIiwicHJpdmlsZWdlX2dyb3VwX2lkIjo1LCJwcml2aWxlZ2VfY29kZXMiOlsiQ1JFQVRFX1VTRVIiLCJVUERBVEVfVVNFUiJdLCJpYXQiOjE3Mjc2ODU2OTgsImV4cCI6MTc1OTIyMTY5OH0.SV_2tmGI3AHoKpIx2RndMg_IoQzskBmjolntYEuU-YE`
+
+        localStorage.setItem("ACCESS_TOKEN",token)
         // if (user === null) {
 
     

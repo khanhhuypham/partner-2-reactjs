@@ -17,8 +17,7 @@ export const userDataSlice = createSlice({
     initialState,
     reducers: {
         
-      
-
+    
         setUser: (state: any, action: PayloadAction<User>) => {
             saveToken(action.payload.access_token)
             state.user = action.payload;

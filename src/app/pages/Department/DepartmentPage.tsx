@@ -1,3 +1,4 @@
+
 import Button from "@mui/joy/Button";
 import Breadcrumbs from "@mui/joy/Breadcrumbs";
 import Box from "@mui/joy/Box";
@@ -6,11 +7,9 @@ import ChevronRightRoundedIcon from "@mui/icons-material/ChevronRightRounded";
 import DownloadRoundedIcon from "@mui/icons-material/DownloadRounded";
 import Typography from "@mui/joy/Typography";
 import Link from "@mui/joy/Link";
-import OrderTable from "./OrderTable";
+import { DepartmentTable } from "./DepartmentTable";
 
-
-
-export const Order = () => {
+export const DepartmentPage = () => {
     return (
         <Box
             component="main"
@@ -60,7 +59,7 @@ export const Order = () => {
                         color="primary"
                         sx={{ fontWeight: 500, fontSize: 12 }}
                     >
-                        Orders
+                        Department
                     </Typography>
                 </Breadcrumbs>
             </Box>
@@ -76,7 +75,7 @@ export const Order = () => {
                 }}
             >
                 <Typography level="h2" component="h1">
-                    Orders
+                    Department
                 </Typography>
                 <Button
                     color="primary"
@@ -86,7 +85,7 @@ export const Order = () => {
                     Download PDF
                 </Button>
             </Box>
-            <OrderTable />
+            <DepartmentTable />
        
         </Box>
     )

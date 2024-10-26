@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import * as React from "react";
+import {useState,Fragment, useEffect} from "react";
 import { ColorPaletteProp } from "@mui/joy/styles";
 import Avatar from "@mui/joy/Avatar";
 import Box from "@mui/joy/Box";
@@ -34,6 +34,10 @@ import AutorenewRoundedIcon from "@mui/icons-material/AutorenewRounded";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import MoreHorizRoundedIcon from "@mui/icons-material/MoreHorizRounded";
+import { RemoveFromQueue } from "@mui/icons-material";
+import { Department } from "../../models/department";
+import { createPagination } from "../../utils/utils";
+import { departmentService } from "../../services/department/departmentService";
 
 const rows = [
     {
@@ -263,12 +267,27 @@ function RowMenu() {
         </Dropdown>
     );
 }
+
 export default function OrderTable() {
-    const [order, setOrder] = React.useState<Order>("desc");
-    const [selected, setSelected] = React.useState<readonly string[]>([]);
-    const [open, setOpen] = React.useState(false);
+    const [order, setOrder] = useState<Order>("desc");
+    const [selected, setSelected] = useState<readonly string[]>([]);
+    const [open, setOpen] = useState(false);
+
+    const [data, setData] = useState<Department[]>([]);
+    const [limit, setLimit] = useState(10);
+    const [cursor, setCursor] = useState(0);
+    useEffect(()=>{
+        departmentService.List().then((res)=>{
+            console.log(typeof res.data)
+            setData(res.data)
+        }).catch((error) =>{
+            console.log(error)
+        })
+    },[])
+
+
     const renderFilters = () => (
-        <React.Fragment>
+        <Fragment>
             <FormControl size="sm">
                 <FormLabel>Status</FormLabel>
                 <Select
@@ -303,10 +322,11 @@ export default function OrderTable() {
                     <Option value="jay">Jay Hoper</Option>
                 </Select>
             </FormControl>
-        </React.Fragment>
+        </Fragment>
     );
+    
     return (
-        <React.Fragment>
+        <Fragment>
             <Sheet
                 className="SearchAndFilters-mobile"
                 sx={{ display: { xs: "flex", sm: "none" }, my: 1, gap: 1 }}
@@ -376,6 +396,7 @@ export default function OrderTable() {
                 </FormControl>
                 {renderFilters()}
             </Box>
+            
             <Sheet
                 className="OrderTableContainer"
                 variant="outlined"
@@ -488,7 +509,7 @@ export default function OrderTable() {
                         </tr>
                     </thead>
                     <tbody>
-                        {[...rows]
+                        {[...rows.slice(cursor,cursor + limit)]
                             .sort(getComparator(order, "id"))
                             .map((row) => (
                                 <tr key={row.id}>
@@ -606,48 +627,58 @@ export default function OrderTable() {
                     </tbody>
                 </Table>
             </Sheet>
-            <Box
-                className="Pagination-laptopUp"
-                sx={{
-                    pt: 2,
-                    gap: 1,
-                    [`& .${iconButtonClasses.root}`]: { borderRadius: "50%" },
-                    display: {
-                        xs: "none",
-                        md: "flex",
-                    },
-                }}
-            >
+            
+
+   
+            <div className = "flex justify-between">
+
                 <Button
                     size="sm"
                     variant="outlined"
                     color="neutral"
                     startDecorator={<KeyboardArrowLeftIcon />}
+                    
+                    onClick={()=>{
+                        setCursor((cursor - limit) <= 0 ? 0 : (cursor - limit))
+                    }}
                 >
                     Previous
                 </Button>
 
-                <Box sx={{ flex: 1 }} />
-                {["1", "2", "3", "…", "8", "9", "10"].map((page) => (
+            
+                <div className="space-x-2">
+
+                {createPagination(1,Math.ceil(rows.length/limit)).map((page) => (
                     <IconButton
                         key={page}
                         size="sm"
-                        variant={Number(page) ? "outlined" : "plain"}
+                        variant={Number(page) - 1 == Number(cursor/limit)? "solid" : "outlined" }
                         color="neutral"
+
+                        onClick={()=>{
+                            setCursor((Number(page) - 1)*limit)
+                        }}
                     >
                         {page}
                     </IconButton>
                 ))}
-                <Box sx={{ flex: 1 }} />
+
+                </div>
+            
+            
                 <Button
                     size="sm"
                     variant="outlined"
                     color="neutral"
                     endDecorator={<KeyboardArrowRightIcon />}
+                    onClick={()=>{
+                        setCursor((cursor + limit) >= rows.length ? cursor : (cursor + limit))
+                    }}
                 >
                     Next
                 </Button>
-            </Box>
-        </React.Fragment>
+            </div>
+  
+        </Fragment>
     );
 }
