@@ -1,4 +1,4 @@
-import { User } from "../models/user";
+import { User } from "../models/user/user";
 
 export const saveToken = (token: string) => {
     sessionStorage.setItem("token", token);

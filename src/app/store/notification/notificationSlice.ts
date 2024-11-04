@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../store';
-import { NotifiType } from '../../constant/notificationType';
+import { NotifiType } from '../../constants/notificationType';
+
 
 
 export interface INotificationState {

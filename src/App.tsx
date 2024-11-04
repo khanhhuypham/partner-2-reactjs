@@ -1,61 +1,51 @@
-import React from 'react';
+
 import { BrowserRouter, Route, Routes, } from 'react-router-dom'
 import './App.css';
 import { useEffect, useState } from 'react'
 
-import LoginForm from './app/pages/login';
-// import { ToastContainer } from 'react-toastify';
-
-import { Layout } from './app/HOC/Layout';
-import { Order } from './app/pages/Order/Order';
-import { Chat } from './app/pages/Chat/Chat';
-import { MyProfile } from './app/pages/Profile/Profile';
-import { Login } from './app/pages/Login/LoginForm';
-import { DepartmentPage } from './app/pages/Department/DepartmentPage';
-import { Toast } from './app/components/alert/Alert';
-import useMountTransition from './app/components/alert/UseMountTransition';
-import {  useAppSelector } from './app/hooks/useRedux';
-import { notificationSelector } from './app/store/notification/notificationSlice';
-
+import { CustomLayout } from './app/component/layout/Layout';
+import { Home } from './app/page/home/Home';
+import { DepartmentPage } from './app/page/department/Department';
+import { About } from './app/page/about/About';
+import { ROUTE_LINK } from './app/routes/route-link';
+import { Login } from './app/page/login/Login';
+import { EmployeeList } from './app/page/employee/employeeList/EmployeeList';
+import { TrackingDiary } from './app/page/employee/tracking-diary/tracking-diary';
+import { Dashboard } from './app/page/dashboard/Dashboard';
+import { CustomerList } from './app/page/customer/customerList/customerList';
 
 
 
 function App() {
-    const [loggedIn, setLoggedIn] = useState(false)
-    const [email, setEmail] = useState('')
 
 
-    const notificationSlice = useAppSelector(notificationSelector);
-
-    const hasTransitionedIn = useMountTransition(notificationSlice.show, 500);
 
     return (
-        <div className="App">
 
-            <div style={{ position: "absolute", top: 50, right: 20, zIndex: 999, width: 350 }} >
-                {
-                    (
-                        <div className={`notifi ${hasTransitionedIn && "in"} ${notificationSlice.show && "visible"}`}>
-                            <Toast />
-                        </div>
-                    )
-                }
-            </div>
+        <BrowserRouter>
+            <Routes>
+                <Route path={ROUTE_LINK.LOGIN} element={<Login/>} />
+                <Route path="/" element={<CustomLayout/>}>
+                    <Route path={ROUTE_LINK.DASHBOARD} element={<Dashboard/>} />
 
-            <BrowserRouter>
-                <Routes>
-                    <Route path="/" element={<LoginForm />} />
-                    <Route path="/" element={<Layout />}>
+                    <Route path={ROUTE_LINK.CUSTOMER_LIST} element={<CustomerList/>} />
+                    <Route path={ROUTE_LINK.FILE_MANAGEMENT} element={<CustomerList/>} />
+          
+                    
+                    <Route path={ROUTE_LINK.DEPARTMENT} element={<DepartmentPage/>} />
+                    <Route path={ROUTE_LINK.EMPLOYEE_LIST} element={<EmployeeList/>} />
+                    <Route path={ROUTE_LINK.TRACKING_DIARY} element={<TrackingDiary/>}/>
 
-                        <Route path="/department" element={<DepartmentPage />} />
-                        <Route path="/order" element={<Order />} />
-                        <Route path="/chat" element={<Chat />} />
-                        <Route index path="/profile" element={<MyProfile />} />
-                    </Route>
-                </Routes>
-            </BrowserRouter>
-            {/* <ToastContainer/> */}
-        </div>
-    )
+
+                    <Route path={ROUTE_LINK.RANKING_DASHBOARD} element={<h1>RANKING_DASHBOARD</h1>} />
+                
+                    <Route path="/home" element={<Home/>} />
+                    <Route path="/about" element={<About/>} />
+                </Route>
+            </Routes>
+        </BrowserRouter>
+
+    );
 }
+
 export default App;

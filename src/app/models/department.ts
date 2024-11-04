@@ -1,6 +1,8 @@
 import { Personnel } from "./personnel"
 
 
+
+
 export class Department {
     id: number = 0
     name: string = ""
@@ -19,6 +21,10 @@ export class Department {
         Object.assign(this, item)
     }
 }
+
+
+
+
 
 export class DepartmentTree {
     id: number = 0;

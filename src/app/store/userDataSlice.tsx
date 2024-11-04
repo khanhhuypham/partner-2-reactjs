@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { User } from '../models/user';
+import { User } from '../models/user/user';
 import { removeSessionToken, saveToken } from './sessionManager';
 import { RootState } from './store';
 
@@ -33,4 +33,3 @@ export const userDataSlice = createSlice({
 export const {setUser,removeUser } = userDataSlice.actions;
 export const userSelector = (state: RootState) => state.userData;
 
-// export const selectGetToken = (state: RootState) => state.userData.token;

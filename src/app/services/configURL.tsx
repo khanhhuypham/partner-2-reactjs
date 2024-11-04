@@ -4,14 +4,12 @@ import axios, { AxiosInstance, AxiosError, AxiosResponse } from "axios";
 
 
 
-const axiosClient = (token: string | null = null): AxiosInstance => {
+const axiosClient = (port: number | null = null): AxiosInstance => {
     
-    const headers = token
-        ? {Authorization: `Bearer ${token}`,"Content-Type": "application/json", }
-        : {"Content-Type": "application/json"};
+    const headers = {"Content-Type": "application/json"}
 
     const client = axios.create({
-        baseURL: "http://172.16.2.173:31151/api",
+        baseURL: `http://172.16.2.173:${(port ?? 31151).toString()}/api`,
         headers,
         timeout: 10000,
         withCredentials: false,

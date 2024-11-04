@@ -1,12 +1,4 @@
-
-
-.notifi {
-    opacity: 0;
-    transform: translateX(15px);
-    transition: opacity 0.8s ease, transform 0.8s ease;
-}
-
-.notifi.in.visible {
-    opacity: 1;
-    transform: translateX(0);
+p {
+  margin: 0;
+  padding: 0;
 }
