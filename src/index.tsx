@@ -5,10 +5,38 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
 import { store } from './app/store/store';
-
+import {
+    ArcElement,
+    BarElement,
+    CategoryScale,
+    Chart as ChartJS,
+    Legend,
+    LinearScale,
+    LineController,
+    LineElement,
+    PointElement,
+    Title,
+    Tooltip,
+  } from "chart.js";
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
 );
+
+// Đăng ký các thành phần của ChartJS
+ChartJS.register(
+    CategoryScale,
+    LineController,
+    LineElement,
+    PointElement,
+    LinearScale,
+    BarElement,
+    ArcElement,
+    Title,
+    Tooltip,
+    Legend
+);
+
+
 root.render(
     <Provider store={store}>
 

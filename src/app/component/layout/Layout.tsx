@@ -43,8 +43,8 @@ const topItems: MenuItem[] = [
         getItem(<NavLink to={ROUTE_LINK.TRACKING_DIARY}>Tracking Diary</NavLink>, "Employee Management / Tracking Diary"),
         getItem(<NavLink to={ROUTE_LINK.RANKING_DASHBOARD}>Ranking Dashboard</NavLink>, "Employee Management / Ranking Dashboard"),
     ]),
-    getItem("Team", "sub3", <TeamOutlined />, [
-        getItem("Team 1", "8"),
+    getItem("Campaign Management", "Campaign Management", <TeamOutlined />, [
+        getItem(<NavLink to={ROUTE_LINK.CAMPAIGN_CHART}>Chart</NavLink>, "Campaign Management / Chart"),
         getItem("Team 2", "9"),
     ]),
     getItem(<NavLink to="/about">About</NavLink>, "about", <FileOutlined />),

@@ -1,7 +1,7 @@
 
 import { version } from "os"
 import { BaseResponse } from "../../models/base-response"
-import { CustomerPage } from "../../models/customer/customer"
+import { Customer, CustomerDetail, CustomerDetailData, CustomerPage } from "../../models/customer/customer"
 
 import axiosClient from "../configURL"
 import { Pagination } from "../../models/pagination"
@@ -25,6 +25,18 @@ export const customerService = {
         return data
     },
 
+    Detail: async (customer:Customer) => {
+        const { data } = await axiosClient(31154).get<BaseResponse<CustomerDetailData>>(`${customerService.version}/customers/${customer.id}/detail`)
+        return data
+    },
+
+    Update: async (customer:CustomerDetail) => {
+      
+
+        const { data } = await axiosClient(31154).post<BaseResponse<CustomerDetailData>>(`${customerService.version}/customers/${customer.id}/update`,customer)
+        return data
+    },
+
     TagList: async () => {
         const { data } = await axiosClient(31154).get<BaseResponse<TagEntity[]>>(`${customerService.version}/tag`)
         return data
@@ -34,6 +46,9 @@ export const customerService = {
         const { data } = await axiosClient(31154).get<BaseResponse<CustomerSource[]>>(`${customerService.version}/lead-source`)
         return data
     },
+
+
+
 
 
 } 

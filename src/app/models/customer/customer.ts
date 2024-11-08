@@ -1,3 +1,5 @@
+import { GENDER } from "../../constants/enum";
+import { Place } from "../place/place";
 import { TagEntity } from "./tag";
 
 export class CustomerPage {
@@ -28,3 +30,33 @@ export class Customer {
     }
 }
 
+
+export class CustomerDetailData {
+    id: number = 0;
+    lead_id: number = 0;
+    lead:CustomerDetail = new CustomerDetail()
+}
+
+
+export class CustomerDetail {
+
+    id: number = 0;
+    name: string = "";
+    birthday: string = "";
+    gender: GENDER = GENDER.male;
+    phone: string = "";
+    email: string = "";
+    street: string = "";
+    ward:Place = new Place();
+    district:Place = new Place();
+    city:Place = new Place();
+    lead_source_id: number = 0;
+    is_priority: number = 0;
+    note: string = "";
+    tags: TagEntity[] = [];
+    // lead_groups: string = "";
+
+    constructor(data?: Partial<CustomerDetail>) {
+        Object.assign(this, data);
+    }
+}

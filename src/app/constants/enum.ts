@@ -14,7 +14,7 @@ export enum user_status {
 
 
 export enum GENDER {
+    female = 0,
     male = 1,
-    female = 2,
-    other = 3
+    other = 2
 }

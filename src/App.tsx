@@ -12,14 +12,13 @@ import { Login } from './app/page/login/Login';
 import { EmployeeList } from './app/page/employee/employeeList/EmployeeList';
 import { TrackingDiary } from './app/page/employee/tracking-diary/tracking-diary';
 import { Dashboard } from './app/page/dashboard/Dashboard';
-import { CustomerList } from './app/page/customer/customerList/customerList';
+import { CustomerList } from './app/page/customer/customerList/CustomerList';
+import { CampaignReport } from './app/page/campaign/CampaginReport';
 
 
 
 function App() {
-
-
-
+    
     return (
 
         <BrowserRouter>
@@ -35,6 +34,9 @@ function App() {
                     <Route path={ROUTE_LINK.DEPARTMENT} element={<DepartmentPage/>} />
                     <Route path={ROUTE_LINK.EMPLOYEE_LIST} element={<EmployeeList/>} />
                     <Route path={ROUTE_LINK.TRACKING_DIARY} element={<TrackingDiary/>}/>
+
+                    <Route path={ROUTE_LINK.CAMPAIGN_CHART} element={<CampaignReport/>} />
+                    
 
 
                     <Route path={ROUTE_LINK.RANKING_DASHBOARD} element={<h1>RANKING_DASHBOARD</h1>} />

@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react";
 
-import { Button, Input, message, Pagination, PaginationProps, Select, Table, Tabs, Tag, Tooltip } from "antd";
+import { Button, Input, message, Modal, Pagination, PaginationProps, Select, Table, Tabs, Tag, Tooltip } from "antd";
 import { Pagination as pageModel } from '../../../models/pagination';
-import { Customer, CustomerPage } from "../../../models/customer/customer";
+import { Customer, CustomerDetail, CustomerPage } from "../../../models/customer/customer";
 import { ColumnsType, TableProps } from "antd/es/table";
 import { customerService } from "../../../services/customer/customerService";
 import { TagEntity } from "../../../models/customer/tag";
 import { isColorLight, useDebounce } from "../../../utils/utils";
 import { CustomerSource } from "../../../models/customer/customer-source";
+import { CreateCustomer } from "./CreateCustomer";
+
 
 export const CustomerList = () => {
 
@@ -27,6 +29,9 @@ export const CustomerList = () => {
     const onSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
 
     }
+
+
+
 
 
     const fetchData = () => {
@@ -90,8 +95,8 @@ export const CustomerList = () => {
             dataIndex: 'tags',
             render: (i, { tags }) => {
                 let style = {
-                    backgroundColor:`${tags.at(0)?.color ?? ""}`,
-                    color:isColorLight(tags.at(0)?.color ?? "") ? "#000000": "#FFFFFF"
+                    backgroundColor: `${tags.at(0)?.color ?? ""}`,
+                    color: isColorLight(tags.at(0)?.color ?? "") ? "#000000" : "#FFFFFF"
                 }
                 return (
                     <Tooltip placement="right" title={toolTipTable(tags)} arrow={false} color="white" className="space-x-2">
@@ -121,7 +126,7 @@ export const CustomerList = () => {
                         <i className="fa-solid fa-eye"></i>
                     </Button>
 
-                    <Button onClick={() => { }} type="text">
+                    <Button onClick={() => showModalCreate(row)} type="text">
                         <i className="fa-solid fa-pen-to-square"></i>
                     </Button>
 
@@ -134,6 +139,8 @@ export const CustomerList = () => {
         },
 
     ];
+
+
 
 
     const header = () => {
@@ -222,7 +229,7 @@ export const CustomerList = () => {
     };
 
 
-     useEffect(fetchData, [
+    useEffect(fetchData, [
         parameter.pagination.page,
         parameter.tag_id,
         parameter.lead_source_id,
@@ -258,6 +265,20 @@ export const CustomerList = () => {
     }, []);
 
 
+    const showModalCreate = (data: Customer) => {
+        let component = <CreateCustomer customer={data} sourceList={customerSource} tagList={tags}
+            onConfirm={(customer: CustomerDetail) => {
+                if (customer.id > 0) {
+                    fetchData()
+                    setDialog([false])
+                } else {
+                    // showModalConfirm(user, modalType.createEmployeeSuccess)
+                }
+            }}
+        />
+        setDialog([true, component])
+
+    }
 
 
     return (
@@ -271,6 +292,16 @@ export const CustomerList = () => {
                 loading={loading}
                 footer={() => <Pagination align="end" current={parameter.pagination.page} onChange={onPageChange} total={data?.total_record} />}
             />
+
+            <Modal
+
+                centered
+                open={dialog[0]}
+                onCancel={() => setDialog([false, undefined])}
+                footer={<></>}
+            >
+                {dialog[1] ?? <></>}
+            </Modal>
         </>
     );
 };
@@ -288,8 +319,8 @@ const toolTipTable = (branches: TagEntity[]) => {
             key: 'name',
             render: (name, row, index) => {
                 let style = {
-                    backgroundColor:`${row.color ?? ""}`,
-                    color:isColorLight(row.color ?? "") ? "#000000": "#FFFFFF"
+                    backgroundColor: `${row.color ?? ""}`,
+                    color: isColorLight(row.color ?? "") ? "#000000" : "#FFFFFF"
                 }
                 return <span style={style} className="p-2 rounded-md">{name}</span>
             },

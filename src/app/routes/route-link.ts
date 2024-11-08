@@ -15,4 +15,10 @@ export const ROUTE_LINK = {
     DASHBOARD: '/dashboard',
     CHAT: '/chat',
     PROFILE: '/profile',
+
+
+
+    //============================================================
+    CAMPAIGN_CHART: '/campaignChart',
+
 }

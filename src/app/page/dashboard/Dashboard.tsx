@@ -1,59 +1,127 @@
 import { ArrowDownOutlined, ArrowUpOutlined } from "@ant-design/icons";
-import { Card } from "antd";
-import { BarChart, Bar, ResponsiveContainer, PieChart, Pie, Cell, LineChart, Line } from 'recharts';
+import { Card, Select } from "antd";
+import { SingleBarChart } from "../../component/chart/bar/SingleBarChart";
+import { Space, Table, Tag } from 'antd';
+import type { TableProps } from 'antd';
+import { PieChart } from "../../component/chart/pie/PieChart";
+import { HorizontalBarChart } from "../../component/chart/bar/HorizontalBarChart";
 
 export const Dashboard = () => {
+
+    const items: { title: string, content: string }[] = [
+        { title: "100.000.000.000", content: "TỔNG NHÂN VIÊN" },
+        { title: "100", content: "CHIẾN DỊCH ĐANG CHẠY" },
+        { title: "100", content: "KHÁCH HÀNG MỚI" }
+    ]
+
+
+    const renderCard = ({ content }: { content: JSX.Element | undefined }) => {
+        return (
+            <Card bordered={false} className="text-center">
+                {content}
+            </Card>
+        )
+    }
+
+
     return (
         <>
             <div className="grid grid-cols-3 gap-4">
-                <Card bordered={false} className="text-center">
-                    <p className="text-blue-700 text-3xl font-bold">
-                        100.000.000.000{" "}
-                    </p>
-                    <p className="text-xl font-medium"> TỔNG NHÂN VIÊN</p>
-                </Card>
-                <Card bordered={false} className="text-center">
-                    <p className="text-blue-700 text-3xl font-bold">100</p>
-                    <p className="text-xl font-medium">CHIẾN DỊCH ĐANG CHẠY</p>
-                </Card>
-                <Card bordered={false} className="text-center">
-                    <p className="text-blue-700 text-3xl font-bold">100</p>
-                    <p className="text-xl font-medium">KHÁCH HÀNG MỚI</p>
-                </Card>
+
+                {items.map((item) => renderCard(
+                    {
+                        content: (
+                            <>
+                                <p className="text-blue-700 text-3xl font-bold">100</p>
+                                <p className="text-xl font-medium">CHIẾN DỊCH ĐANG CHẠY</p>
+                            </>
+                        )
+                    }
+                ))}
             </div>
 
             <div>
-                <div>
-                    <div>
-                        <BarChart width={150} height={40} data={BarchartData}>
-                            <Bar dataKey="uv" fill="#8884d8" />
-                        </BarChart>
+                <div className="grid grid-rows-3 gap-4">
 
-                        <PieChart width={400} height={400}>
-                            <Pie
-                                data={PieChartData}
-                                cx="50%"
-                                cy="50%"
-                                labelLine={false}
-                                label={renderCustomizedLabel}
-                                outerRadius={80}
-                                fill="#8884d8"
-                                dataKey="value"
-                            >
-                                {PieChartData.map((entry, index) => (
-                                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                                ))}
-                            </Pie>
-                        </PieChart>
+                    <div className="grid grid-cols-3 gap-2">
+
+                        <Card className="col-span-2">
+                            <SingleBarChart
+                                title="Lượng khách hàng mới được thêm vào"
+                                style={{ maxHeight: "250px" }}
+                                barChartStyle={{
+                                    datasetTitle: "",
+                                    barBgColor: "#1462B0"
+                                }}
+                            />
+                        </Card>
+
+                        <Card>
+
+                            <div className="flex gap-2 items-center">
+
+                                <span>Bảng xếp hạng: </span>
+
+                                <Select
+                                    className="w-auto"
+                                    placeholder="Search to Select"
+                                    options={[
+                                        {
+                                            value: '1',
+                                            label: 'Theo tuần',
+                                        },
+                                        {
+                                            value: '2',
+                                            label: 'Closed',
+                                        },
+                                        {
+                                            value: '3',
+                                            label: 'Communicated',
+                                        },
+                                        {
+                                            value: '4',
+                                            label: 'Identified',
+                                        },
+                                        {
+                                            value: '5',
+                                            label: 'Resolved',
+                                        },
+                                        {
+                                            value: '6',
+                                            label: 'Cancelled',
+                                        },
+                                    ]}
+                                />
+                            </div>
+
+                            <Table<DataType> columns={columns} dataSource={data} scroll={{ y: 250 }} pagination={false} />
+                        </Card>
                     </div>
 
 
-                    <div>
+                    <div className="grid grid-cols-2 gap-4">
 
-                        <LineChart width={300} height={100} data={LineChartData}>
-                            <Line type="monotone" dataKey="pv" stroke="#8884d8" strokeWidth={2} />
-                        </LineChart>
+                        <Card >
+                            <PieChart title="Danh số theo dịch vụ" style={{ width: "100%", maxHeight: "250px" }} />
+                        </Card>
+
+                        <Card>
+                            <HorizontalBarChart title="Nguồn khách hàng" style={{ maxHeight: "250px" }} />
+                        </Card>
                     </div>
+
+
+                    <div className="grid grid-cols-2 gap-4">
+
+                        <Card >
+                            <PieChart title="Danh số theo dịch vụ" style={{ width: "100%", maxHeight: "250px" }} />
+                        </Card>
+
+                        <Card>
+                            <HorizontalBarChart title="Nguồn khách hàng" style={{ maxHeight: "250px" }} />
+                        </Card>
+                    </div>
+
 
                 </div>
             </div>
@@ -62,116 +130,43 @@ export const Dashboard = () => {
 };
 
 
-const BarchartData = [
+interface DataType {
+    key: string;
+    name: string;
+    age: number;
+}
+
+
+const columns: TableProps<DataType>['columns'] = [
     {
-        name: 'Page A',
-        uv: 4000,
-        pv: 2400,
-        amt: 2400,
+        title: 'Employee',
+        dataIndex: 'name',
+        key: 'name',
+        render: (text) => <a>{text}</a>,
     },
     {
-        name: 'Page B',
-        uv: 3000,
-        pv: 1398,
-        amt: 2210,
+        title: 'Contract Quantity',
+        dataIndex: 'age',
+        key: 'age',
     },
-    {
-        name: 'Page C',
-        uv: 2000,
-        pv: 9800,
-        amt: 2290,
-    },
-    {
-        name: 'Page D',
-        uv: 2780,
-        pv: 3908,
-        amt: 2000,
-    },
-    {
-        name: 'Page E',
-        uv: 1890,
-        pv: 4800,
-        amt: 2181,
-    },
-    {
-        name: 'Page F',
-        uv: 2390,
-        pv: 3800,
-        amt: 2500,
-    },
-    {
-        name: 'Page G',
-        uv: 3490,
-        pv: 4300,
-        amt: 2100,
-    },
+
 ];
 
-
-const PieChartData = [
-    { name: 'Group A', value: 400 },
-    { name: 'Group B', value: 300 },
-    { name: 'Group C', value: 300 },
-    { name: 'Group D', value: 200 },
-];
-
-const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
-
-const RADIAN = Math.PI / 180;
-const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, index }: any) => {
-    const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
-    const x = cx + radius * Math.cos(-midAngle * RADIAN);
-    const y = cy + radius * Math.sin(-midAngle * RADIAN);
-
-    return (
-        <text x={x} y={y} fill="white" textAnchor={x > cx ? 'start' : 'end'} dominantBaseline="central">
-            {`${(percent * 100).toFixed(0)}%`}
-        </text>
-    );
-};
-
-
-const LineChartData = [
+const data: DataType[] = [
     {
-        name: 'Page A',
-        uv: 4000,
-        pv: 2400,
-        amt: 2400,
+        key: '1',
+        name: 'John Brown',
+        age: 32,
     },
     {
-        name: 'Page B',
-        uv: 3000,
-        pv: 1398,
-        amt: 2210,
+        key: '2',
+        name: 'Jim Green',
+        age: 42,
+
     },
     {
-        name: 'Page C',
-        uv: 2000,
-        pv: 9800,
-        amt: 2290,
-    },
-    {
-        name: 'Page D',
-        uv: 2780,
-        pv: 3908,
-        amt: 2000,
-    },
-    {
-        name: 'Page E',
-        uv: 1890,
-        pv: 4800,
-        amt: 2181,
-    },
-    {
-        name: 'Page F',
-        uv: 2390,
-        pv: 3800,
-        amt: 2500,
-    },
-    {
-        name: 'Page G',
-        uv: 3490,
-        pv: 4300,
-        amt: 2100,
+        key: '3',
+        name: 'Joe Black',
+        age: 32,
     },
 ];
