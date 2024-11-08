@@ -47,3 +47,8 @@ export function isColorLight(color:string) {
     const brightness = ((c_r * 299) + (c_g * 587) + (c_b * 114)) / 1000;
     return brightness > 155;
 }
+
+export function generateRandomArray(length: number, min: number, max: number): number[] {
+    return Array.from({ length }, () => Math.floor(Math.random() * (max - min + 1)) + min);
+}
+  

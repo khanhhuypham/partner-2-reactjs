@@ -18,6 +18,11 @@ import {
     Title,
     Tooltip,
   } from "chart.js";
+import { FunnelController, TrapezoidElement } from 'chartjs-chart-funnel';
+import ChartDataLabels from 'chartjs-plugin-datalabels';
+
+
+
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
 );
@@ -33,15 +38,18 @@ ChartJS.register(
     ArcElement,
     Title,
     Tooltip,
-    Legend
+    Legend,
+    FunnelController,
+    TrapezoidElement,
+    LinearScale,
+    ChartDataLabels
 );
+
 
 
 root.render(
     <Provider store={store}>
-
         <App />
-
     </Provider>
 );
 

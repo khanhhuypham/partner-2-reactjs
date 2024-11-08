@@ -58,7 +58,7 @@ const btmItems: MenuItem[] = [
 
 
 export const CustomLayout: React.FC = () => {
-    
+
     const [collapsed, setCollapsed] = useState(false);
     const dispatch = useAppDispatch();
     const sideBarSlice = useAppSelector(sidebarSelector);
@@ -68,13 +68,22 @@ export const CustomLayout: React.FC = () => {
     } = theme.useToken();
 
     return (
-        <Layout style={{ minHeight: "100vh" }}>
+        <Layout style={{ minHeight: "100vh" }} hasSider>
             <Sider
                 trigger={null}
                 collapsible
                 collapsed={collapsed}
                 onCollapse={(value) => setCollapsed(value)}
-                // className="flex flex-col "
+                style={{
+                    overflow: 'auto',
+                    height: '100vh',
+                    position: 'fixed',
+                    insetInlineStart: 0,
+                    top: 0,
+                    bottom: 0,
+                    // scrollbarWidth: 'thin',
+                    // scrollbarGutter: 'stable',
+                }}
             >
                 <div>
                     <div className="demo-logo-vertical" />
@@ -98,18 +107,18 @@ export const CustomLayout: React.FC = () => {
                     />
                 </div>
             </Sider>
-            <Layout>
+            <Layout style={{ marginInlineStart: 200 }}>
                 {/* <Header style={{ padding: 0, background: colorBgContainer }} /> */}
                 <Header style={{ padding: 0, background: colorBgContainer }} className="h-8 flex items-center">
                     <Button
                         type="text"
                         icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
                         onClick={() => setCollapsed(!collapsed)}
-                        // style={{
-                        //     fontSize: '16px',
-                        //     width: 64,
-                        //     height: 64,
-                        // }}
+                    // style={{
+                    //     fontSize: '16px',
+                    //     width: 64,
+                    //     height: 64,
+                    // }}
                     />
                 </Header>
                 <Content style={{ margin: "0 16px" }} className="space-y-5">

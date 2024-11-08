@@ -1,3 +1,4 @@
+import { Select } from 'antd';
 import {
     Chart as ChartJS,
     CategoryScale,
@@ -7,24 +8,19 @@ import {
     Title,
     Tooltip,
     Legend,
+    ChartData,
 } from 'chart.js';
 import { useState } from 'react';
 import { Line } from 'react-chartjs-2';
-
-
-// ChartJS.register(
-//     CategoryScale,
-//     LinearScale,
-//     PointElement,
-//     LineElement,
-//     Title,
-//     Tooltip,
-//     Legend
-// );
+import { reportFilter } from '../../../constants/constant';
 
 
 
-export const LineChart = ({title,style}:{title?:string;style?:React.CSSProperties}) =>{
+
+export const LineChart = (
+    { title, style, data, showFilter, filterClousure }:
+    { title?: string; style?: React.CSSProperties; data: any; showFilter?: boolean; filterClousure?: ((value: number) => void) }
+) => {
 
     // Ref to access the chart instance
     // const chartRef = useRef(null);
@@ -45,7 +41,15 @@ export const LineChart = ({title,style}:{title?:string;style?:React.CSSPropertie
                 text: title,
                 align: 'start' as const,
             },
-    
+
+            legend: {
+                display: true,
+                align:"start" as const,
+                padding:{
+                    bottom:"30px"
+                }
+            },
+
         },
         scales: {
             y: {
@@ -77,31 +81,25 @@ export const LineChart = ({title,style}:{title?:string;style?:React.CSSPropertie
         },
     };
 
-    const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-
-    const data = {
-        labels,
-        datasets: [
-            {
-                label: 'Dataset 1111',
-                data: [33, 53, 85, 41, 44, 65, 65],
-                borderColor: '#D68512',
-                backgroundColor: '#D68512',
-                yAxisID: 'y',
-                tension: 0.4,
-            },
-            {
-                label: 'Dataset 2222222',
-                data: [33, 25, 35, 51, 54, 76, 65],
-                borderColor: '#448955',
-                backgroundColor: '#448955',
-                yAxisID: 'y1',
-                tension: 0.4,
-            },
-        ],
-    };
 
 
-    return <Line options={options} data={data} style={style}/>
+    return (
+        <div>
+
+            {showFilter && showFilter == true &&
+                <div className='flex justify-end'>
+                    <Select
+
+                        placeholder="Select a person"
+                        // optionFilterProp="label"
+                        defaultValue={1}
+                        onChange={(value: number) => filterClousure && filterClousure(value)}
+                        options={reportFilter}
+                    />
+                </div>
+            }
+            <Line options={options} data={data} style={style} />
+        </div>
+    )
 
 }

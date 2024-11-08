@@ -1,35 +1,12 @@
 import { useState } from "react";
 import { Doughnut } from "react-chartjs-2";
+import { reportFilter } from "../../../constants/constant";
+import { Select } from "antd";
 
-export const PieChart = ({title,style}:{title?:string;style?:React.CSSProperties}) => {
-    // Utility function to generate random numbers
-    const Utils = {
-        numbers: (cfg: { count: number; max: number; min: number }) => {
-            return Array.from({ length: cfg.count }, () =>
-                Math.floor(Math.random() * (cfg.max - cfg.min + 1) + cfg.min)
-            );
-        },
-        CHART_COLORS: {
-            Red: "rgb(255, 99, 132)",
-            Orange: "rgb(255, 159, 64)",
-            Yellow: "rgb(255, 205, 86)",
-            Green: "rgb(75, 192, 192)",
-        },
-    };
-
-    const DATA_COUNT = 5;
-    const NUMBER_CFG = { count: DATA_COUNT, min: 0, max: 100 };
-
-    const data = {
-        labels: ["Facebook", "Google", "Zalo", "Techres", "Web"],
-        datasets: [
-            {
-                label: "Dataset 1",
-                data: Utils.numbers(NUMBER_CFG),
-                backgroundColor: Object.values(Utils.CHART_COLORS),
-            },
-        ],
-    };
+export const PieChart = (
+    { title, style, data, showFilter, filterClousure }:
+        { title?: string; style?: React.CSSProperties, data: any; showFilter?: boolean; filterClousure?: ((value: number) => void) }
+) => {
 
     // State to control label visibility
     const [showPercent, setShowPercent] = useState(false);
@@ -40,7 +17,7 @@ export const PieChart = ({title,style}:{title?:string;style?:React.CSSProperties
         animation: {
             animateRotate: true,
             animateScale: true,
-            duration: 2000,
+            duration: 800,
             easing: "easeOutQuad",
             onComplete: () => {
                 // Show the percentage after the animation completes
@@ -60,7 +37,7 @@ export const PieChart = ({title,style}:{title?:string;style?:React.CSSProperties
             },
             title: {
                 display: true,
-                text:title,
+                text: title,
                 align: "start" as const
 
             },
@@ -72,10 +49,7 @@ export const PieChart = ({title,style}:{title?:string;style?:React.CSSProperties
                     value: number,
                     context: { dataset: { data: number[] } }
                 ) => {
-                    const total = context.dataset.data.reduce(
-                        (acc, curr) => acc + curr,
-                        0
-                    );
+                    const total = context.dataset.data.reduce((acc, curr) => acc + curr,0);
                     const percentage = ((value / total) * 100).toFixed(2) + "%";
                     return percentage;
                 },
@@ -96,7 +70,23 @@ export const PieChart = ({title,style}:{title?:string;style?:React.CSSProperties
         },
     };
 
-    return  <Doughnut data={data} options={options} style={style}/>
-     
+    return (
+        <div>
+
+            {showFilter && showFilter == true &&
+                <div className='flex justify-end'>
+                    <Select
+                        placeholder="Select a person"
+                        // optionFilterProp="label"
+                        defaultValue={1}
+                        onChange={(value: number) => filterClousure && filterClousure(value)}
+                        options={reportFilter}
+                    />
+                </div>
+            }
+            <Doughnut data={data} options={options} style={style} />
+        </div>
+    )
+
 
 };
